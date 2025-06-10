@@ -8,9 +8,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::get('dashboard', [PageController::class, 'dashboard'])
+    ->name('dashboard')
+    ->middleware(['auth', 'verified']);
 
 Route::get('dashboard/prueba', [PageController::class, 'dashboard'])
     ->middleware(['auth', 'verified'])
@@ -22,6 +22,8 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
     Volt::route('settings/password', 'settings.password')->name('settings.password');
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
+
+    Route::get('/profile/{user}',[PageController::class, 'profile'])->name('profile.show');
 });
 
 require __DIR__.'/auth.php';

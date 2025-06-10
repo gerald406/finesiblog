@@ -20,27 +20,11 @@
             <flux:spacer />
 
             <flux:navbar class="me-1.5 space-x-0.5 rtl:space-x-reverse py-0!">
-                <flux:tooltip :content="__('Search')" position="bottom">
-                    <flux:navbar.item class="!h-10 [&>div>svg]:size-5" icon="magnifying-glass" href="#" :label="__('Search')" />
+                <flux:tooltip :content="__('Home')" position="bottom">
+                    <flux:navbar.item class="!h-10 [&>div>svg]:size-5" icon="home" href="{{ route('dashboard') }}"
+                    :label="__('Home')" />
                 </flux:tooltip>
-                <flux:tooltip :content="__('Repository')" position="bottom">
-                    <flux:navbar.item
-                        class="h-10 max-lg:hidden [&>div>svg]:size-5"
-                        icon="folder-git-2"
-                        href="https://github.com/laravel/livewire-starter-kit"
-                        target="_blank"
-                        :label="__('Repository')"
-                    />
-                </flux:tooltip>
-                <flux:tooltip :content="__('Documentation')" position="bottom">
-                    <flux:navbar.item
-                        class="h-10 max-lg:hidden [&>div>svg]:size-5"
-                        icon="book-open-text"
-                        href="https://laravel.com/docs/starter-kits#livewire"
-                        target="_blank"
-                        label="Documentation"
-                    />
-                </flux:tooltip>
+
             </flux:navbar>
 
             <!-- Desktop User Menu -->
@@ -75,6 +59,12 @@
                     <flux:menu.radio.group>
                         <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
                     </flux:menu.radio.group>
+
+                    <flux:menu.radio.group>
+                        <flux:menu.item :href="route('dashboard',['for_my'=>true])" icon="document-text" wire:navigate>{{ __('My Posts') }}     
+                        </flux:menu.item>
+                    </flux:menu.radio.group>
+
 
                     <flux:menu.separator />
 
