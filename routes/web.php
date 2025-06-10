@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PostController;
+
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
@@ -12,10 +14,6 @@ Route::get('dashboard', [PageController::class, 'dashboard'])
     ->name('dashboard')
     ->middleware(['auth', 'verified']);
 
-Route::get('dashboard/prueba', [PageController::class, 'dashboard'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard.prueba');
-
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
 
@@ -24,6 +22,8 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 
     Route::get('/profile/{user}',[PageController::class, 'profile'])->name('profile.show');
+
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 });
 
 require __DIR__.'/auth.php';
