@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\FriendController;
 
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
@@ -24,6 +25,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile/{user}',[PageController::class, 'profile'])->name('profile.show');
 
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+
+    Route::post('/friends/{user}', [FriendController::class, 'store'])->name('friends.store');
 });
 
 require __DIR__.'/auth.php';

@@ -3,22 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
     public function dashboard(Request $request){
-        //dd($request->all());
-        //dd($request->get('for_my'));
-        //dd($request->user()->id);
-
         if($request->get('for_my')){
-            $posts = Post::where('user_id',$request->user()->id)->latest()->get();
+            $user = $request->user();
+            $friends_from_ids = $user->friendsFrom()->pluck('users.id');
+            $friends_to_ids = $user->friendsTo()->pluck('users.id');
+            
+            $user_ids = $friends_from_ids->merge($friends_to_ids)->push($user->id);
+            $posts = Post::whereIn('user_id', $user_ids)->latest()->get();
         }else{
             $posts = Post::latest()->get();
         }
         
         return  view('dashboard', compact('posts'));
    
+    }
+
+    public function profile(User $user){
+        $posts = $user->posts()->latest()->get();
+        return view('profile', compact('user', 'posts'));
     }
 }

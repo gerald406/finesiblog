@@ -62,4 +62,22 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    //metodos apra establecer las relaciones con los modelos
+    public function from(){
+        return $this->belongsToMany(User::class, 'friends','from_id', 'to_id');
+    }
+
+    public function to(){
+        return $this->belongsToMany(User::class, 'friends','to_id', 'from_id');
+    }
+
+    //filtramos a los amigos
+    public function friendsFrom(){
+        return $this->from()->wherePivot('accepted', true);
+    }
+
+    public function friendsTo(){
+        return $this->from()->wherePivot('accepted', false);
+    }
+
 }
