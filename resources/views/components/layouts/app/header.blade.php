@@ -25,6 +25,14 @@
                     :label="__('Home')" />
                 </flux:tooltip>
 
+            <flux:tooltip :content="__('Status')" position="bottom">
+                <flux:navbar.item
+                    class="!h-10 [&>div>svg]:size-5"
+                    icon="bell"
+                    href="{{ route('status') }}"
+                    :label="__('Status')" />
+            </flux:tooltip>
+
             </flux:navbar>
 
             <!-- Desktop User Menu -->
